@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "updated": "2026-04-15T21:14:00Z",
+  "projects": {
+    "clawline-android-alpha": {
+      "linear_project_id": "",
+      "status": "planned",
+      "lead": "bart",
+      "spec": ".project/projects/clawline-android-alpha/spec.md",
+      "plan": ".project/projects/clawline-android-alpha/plan.md"
+    }
+  },
+  "tasks": {
+    "T-001": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    },
+    "T-002": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    },
+    "T-003": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    },
+    "T-004": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    },
+    "T-005": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    },
+    "T-006": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    },
+    "T-007": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    },
+    "T-008": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    },
+    "T-009": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    },
+    "T-010": {
+      "linear_issue_id": "",
+      "project": "clawline-android-alpha"
+    }
+  }
+}
