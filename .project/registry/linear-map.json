@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-04-15T21:14:00Z",
+  "updated": "2026-04-15T21:22:00Z",
   "projects": {
     "clawline-android-alpha": {
       "linear_project_id": "",
@@ -8,6 +8,20 @@
       "lead": "bart",
       "spec": ".project/projects/clawline-android-alpha/spec.md",
       "plan": ".project/projects/clawline-android-alpha/plan.md"
+    },
+    "clawline-android-power-user": {
+      "linear_project_id": "",
+      "status": "planned",
+      "lead": "bart",
+      "spec": ".project/projects/clawline-android-power-user/spec.md",
+      "plan": ".project/projects/clawline-android-power-user/plan.md"
+    },
+    "clawline-android-advanced-platform": {
+      "linear_project_id": "",
+      "status": "planned",
+      "lead": "bart",
+      "spec": ".project/projects/clawline-android-advanced-platform/spec.md",
+      "plan": ".project/projects/clawline-android-advanced-platform/plan.md"
     }
   },
   "tasks": {
@@ -50,6 +64,38 @@
     "T-010": {
       "linear_issue_id": "",
       "project": "clawline-android-alpha"
+    },
+    "clawline-android-power-user:T-001": {
+      "linear_issue_id": "",
+      "project": "clawline-android-power-user"
+    },
+    "clawline-android-power-user:T-002": {
+      "linear_issue_id": "",
+      "project": "clawline-android-power-user"
+    },
+    "clawline-android-power-user:T-003": {
+      "linear_issue_id": "",
+      "project": "clawline-android-power-user"
+    },
+    "clawline-android-power-user:T-004": {
+      "linear_issue_id": "",
+      "project": "clawline-android-power-user"
+    },
+    "clawline-android-advanced-platform:T-001": {
+      "linear_issue_id": "",
+      "project": "clawline-android-advanced-platform"
+    },
+    "clawline-android-advanced-platform:T-002": {
+      "linear_issue_id": "",
+      "project": "clawline-android-advanced-platform"
+    },
+    "clawline-android-advanced-platform:T-003": {
+      "linear_issue_id": "",
+      "project": "clawline-android-advanced-platform"
+    },
+    "clawline-android-advanced-platform:T-004": {
+      "linear_issue_id": "",
+      "project": "clawline-android-advanced-platform"
     }
   }
 }
