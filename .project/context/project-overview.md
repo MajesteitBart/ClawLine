@@ -13,5 +13,5 @@
 ## Current Health
 - Delano runtime is installed and the Flutter skill pack is available in `.agents/skills/`.
 - The architecture baseline is captured in `docs/architecture_outline.md` and now maps to a three-project Delano portfolio instead of a single alpha bucket.
-- The repository is planning-ready and validation-clean, but implementation has not started yet.
-- Main near-term risks are scope creep, gateway contract drift, and losing momentum by over-planning instead of moving into Milestone 1 execution.
+- The alpha app now has a real Flutter shell under `app/clawline` with session-first navigation, typed gateway contracts, and service skeletons.
+- Main near-term risks are gateway contract drift, auth/reconnect edge cases, and getting the current shell checkpoint through clean test completion and git delivery.

@@ -1,0 +1,15 @@
+.tooling/downloads/
+.tooling/sdk/
+.tooling/flutter/
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.idea/
+.vscode/
+*.iml
+.codex
+.codex/
+
+.DS_Store

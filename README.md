@@ -37,6 +37,21 @@ High-level flow:
 - `.project/projects/`: delivery projects created from approved plans
 - `.agents/`: shared Delano runtime, rules, hooks, and skills
 - `HANDBOOK.md`: Delano operating handbook
+- `app/`: Flutter application workspace for the alpha app shell and feature slices
+- `.tooling/bin/flutterw`: repo-local Flutter bootstrap wrapper
+
+## Local Flutter bootstrap
+
+This repo uses a local Flutter wrapper instead of assuming a system installation.
+
+From the repo root:
+
+```bash
+./.tooling/bin/flutterw --version
+./.tooling/bin/flutterw pub get --directory app
+```
+
+The wrapper installs the pinned SDK version from `.tooling/flutter.version` into ignored local paths under `.tooling/`.
 
 ## First milestone
 

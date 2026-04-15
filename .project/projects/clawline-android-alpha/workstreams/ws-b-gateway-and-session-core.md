@@ -1,9 +1,9 @@
 ---
 name: WS-B Gateway and Session Core
 owner: bart
-status: planned
+status: in-progress
 created: 2026-04-15T21:14:00Z
-updated: 2026-04-15T21:14:00Z
+updated: 2026-04-15T22:38:34Z
 ---
 
 # Workstream: WS-B Gateway and Session Core
@@ -29,3 +29,7 @@ Define and implement the connection and session foundation so ClawLine can relia
 - App can connect to a target gateway.
 - Session list renders from real or mocked gateway data.
 - Active chat shell works with clear loading and error states.
+
+## Progress Notes
+- A typed gateway repository contract now defines the alpha read model for connection, sessions, activity, and console health.
+- Connection and session services are wired against a fake repository so the shell can run before the live gateway adapter lands.

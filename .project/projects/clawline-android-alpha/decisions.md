@@ -26,3 +26,20 @@
 - Context: the added Flutter skill pack introduced a Delano validation issue.
 - Decision: patch imported runtime docs locally when they violate repo rules.
 - Why: repo quality and validator cleanliness take priority over preserving an upstream example verbatim.
+
+## 2026-04-15
+
+### D-006: Keep the first alpha slice dependency-light
+- Context: the repo needed a real app shell immediately, but the current execution environment is restrictive and the live gateway client is not wired yet.
+- Decision: implement the first slice with Flutter SDK primitives, a local fake gateway repository, and `ChangeNotifier`-based services instead of introducing a state-management or networking package up front.
+- Why: this lands session-first structure now while keeping package choices reversible once the real gateway adapter is ready.
+
+### D-007: Define the gateway contract as a read-model boundary before transport work
+- Context: the architecture calls for a gateway-first client, but the exact mobile auth and transport details are still open.
+- Decision: define a `GatewayRepository` contract for connection, sessions, transcript messages, activity, and console health, and keep the open handshake/pagination questions explicit in that boundary.
+- Why: it separates product-state modeling from transport implementation and avoids burying unresolved backend assumptions in widgets.
+
+### D-008: Keep Device out of the top-level alpha navigation
+- Context: the architecture leaves room for Android-node workflows, but the first alpha needs tighter operator focus.
+- Decision: keep the top-level shell to Chats, Activity, Console, and Settings, with device-specific concerns deferred behind console/settings work until the operator core is solid.
+- Why: the product promise is session-first mobile operation, not a permission-heavy device surface in the first milestone.

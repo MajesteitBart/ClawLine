@@ -1,9 +1,9 @@
 ---
 name: ClawLine Android Alpha
-status: planned
+status: active
 lead: bart
 created: 2026-04-15T21:14:00Z
-updated: 2026-04-15T21:14:00Z
+updated: 2026-04-15T22:38:34Z
 linear_project_id:
 risk_level: medium
 spec_status_at_plan_time: approved
