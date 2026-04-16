@@ -3,28 +3,33 @@
 Capture architecture and delivery patterns that should be reused.
 
 ## Handbook-First Delivery
-- Delano is the operating model for this repository.
-- Architecture and delivery intent should move from `docs/architecture_outline.md` into `.project/context/` and `.project/projects/` before implementation expands.
+- Delano remains the operating model for this repository.
+- Architecture and delivery intent should stay explicit in `docs/` and `.project/`, even while the codebase foundation changes.
+
+## OpenClaw-Authority Pattern
+- OpenClaw Gateway should remain the long-term authority for sessions, tools, approvals, nodes, logs, cron, skills, and state.
+- Imported upstream infrastructure is a means to accelerate the client, not a replacement for the core OpenClaw system model.
+
+## Happy-as-Shell Pattern
+- Reuse Happy for the mobile shell, interaction patterns, and selected protocol ideas.
+- Do not inherit Happy's provider/machine/server assumptions blindly.
+- Adapt incrementally: keep what improves mobile UX, replace what conflicts with OpenClaw architecture.
 
 ## File-Contract-First State
 - Repository truth lives in committed markdown and registry files, not in chat memory.
-- `docs/architecture_outline.md` is the current product baseline.
+- `docs/architecture_outline.md` remains the product baseline.
+- `docs/happy-multimodal-fork-assessment.md` captures the current pivot rationale.
 - `.project/context/` holds repo-wide truth.
-- `.project/projects/clawline-android-alpha/` holds the first executable alpha plan.
-
-## Gateway-First Mobile Client
-- ClawLine should reuse existing OpenClaw gateway state and control surfaces.
-- New mobile work should favor thin, explicit client layers over backend reinvention.
 
 ## Session-First Product Surface
-- Sessions are the core user-facing unit of work.
-- Chat, activity, and console views should all reinforce the same session and gateway mental model.
+- Sessions remain the core user-facing unit of work.
+- Chat, activity, and console views should reinforce the same session and gateway mental model.
 
-## Compatibility Without Dual Truth
-- Compatibility directories such as `.claude/` may exist, but `.agents/` and `.project/` remain canonical.
-- Do not maintain competing descriptions of the product or delivery state across multiple doc systems.
+## Multimodal-in-Slices
+- Add multimodal capabilities in high-value layers rather than all at once.
+- Preferred order: text foundation first, then image input/rendering, then voice adaptation, then richer artifact and device flows.
 
-## Conservative Installation
-- Prefer additive, reversible changes in the early repo stage.
-- Validate before publishing major project-structure updates.
-- Keep imported third-party skill content aligned with local repo rules when necessary.
+## Conservative Pivoting
+- Preserve recoverability when replacing foundations.
+- Prefer upstream remotes and documented imported commits over opaque copy-pastes.
+- Keep repo-specific planning and skills intact during infrastructure swaps.

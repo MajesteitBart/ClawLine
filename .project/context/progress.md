@@ -1,33 +1,25 @@
 # Progress
 
 ## What Changed
-- Installed the Delano runtime into the repo and added the Flutter skill pack.
-- Imported the OpenClaw Android architecture baseline into `docs/architecture_outline.md`.
-- Created a multi-project Delano portfolio:
-  - `clawline-android-alpha`
-  - `clawline-android-power-user`
-  - `clawline-android-advanced-platform`
-- Replaced the generic context pack with repo-specific context tied to the architecture and delivery sequence.
-- Replaced the stock Flutter counter template with the first ClawLine alpha slice:
-  - session-first app shell
-  - primary bottom navigation
-  - typed gateway/domain contracts
-  - fake gateway-backed connection and session services
-  - read-first activity and console scaffolds
+- Created a recoverable local backup branch before the pivot: `backup/pivot-pre-happy-20260416`.
+- Added `upstream-happy` pointing at `https://github.com/slopus/happy.git`.
+- Removed the previous Flutter alpha shell under `app/clawline`.
+- Imported the Happy monorepo as the new ClawLine codebase foundation.
+- Preserved the ClawLine architecture and delivery layer in `.agents/`, `.project/`, `.delano/`, and `docs/architecture_outline.md`.
+- Added `docs/happy-multimodal-fork-assessment.md` to document what Happy gives us, what conflicts with OpenClaw, and the recommended multimodal path.
 
 ## Why It Changed
-- Bart asked for a real repo with no half-done scaffolding.
-- The architecture research was strong enough to move from audit mode into execution planning.
-- A single alpha project was too narrow to represent the full architecture cleanly, so the repo now separates alpha, phase 2, and advanced platform scope.
-- The repo needed visible product progress now, not another planning-only checkpoint.
+- Bart asked for a substantial pivot in the development concept and implementation base.
+- The earlier Flutter shell was no longer the strongest foundation relative to Happy's more mature mobile infrastructure.
+- We still need to preserve OpenClaw architecture intent, Delano planning, and repo-specific skills rather than starting from a blank Happy fork.
 
 ## What Is Next
-- Replace the fake gateway repository with a real mobile adapter over the existing gateway surfaces.
-- Expand the session list/header slice into a fuller transcript and composer flow.
-- Harden auth, reconnect, and local persistence after the current shell checkpoint is committed and the hanging test-runner behavior is resolved.
+- Decide the first OpenClaw adapter wedge inside `packages/happy-app`.
+- Prove a text-only OpenClaw session read/write path on the new base.
+- Then add the first real multimodal slice, preferably image input plus transcript rendering.
 
 ## Remaining Risks
-- Gateway mobile contract details still need refinement as live integration starts.
-- Scope can sprawl into admin parity or device-node features too early.
-- Auth, pairing, and connection recovery are likely to be trickier than the shell work.
-- The current `flutter test` runner does not exit cleanly in this environment yet, so the shell checkpoint still needs test-runner follow-up before it is called review-ready.
+- Happy's backend model duplicates responsibilities that OpenClaw Gateway already owns.
+- Attachment support in Happy is only partially landed and still needs real productization.
+- Voice is one of the strongest foundations, but it is currently shaped around Happy-specific services and gating.
+- Existing `.project/projects/` execution plans still reflect the earlier Flutter implementation shape and will need a follow-up refresh.

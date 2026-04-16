@@ -1,14 +1,15 @@
 # Project Brief
 
 ## Problem
-- Bart needs a real mobile OpenClaw workspace, not a transport-led workaround through Telegram.
-- Existing OpenClaw capabilities already prove chat, sessions, voice, control, node integration, and admin surfaces, but the mobile product still needs a coherent operator-first architecture and delivery plan.
-- Delano is being used here to convert the architecture into auditable, execution-ready project artifacts instead of letting the repo become a loose collection of ideas.
+- Bart needs a serious mobile OpenClaw workspace, not a Telegram workaround.
+- The original custom Flutter shell proved direction, but not enough leverage relative to stronger existing mobile foundations.
+- Happy already solves a large part of the mobile app and interaction infrastructure, but its backend and product model do not match OpenClaw directly.
 
 ## Target Outcome
-- Define and deliver an internal Android alpha that lets Bart connect to his OpenClaw gateway, work across sessions, inspect live activity, and check key console state from mobile.
-- Prove that ClawLine can replace Telegram for at least three daily operator workflows: multi-session chat, run/activity monitoring, and quick gateway-console inspection.
+- Re-base ClawLine on a Happy-derived mobile client while preserving ClawLine's architecture and Delano planning layer.
+- Adapt the new base to OpenClaw Gateway so the app becomes a session-first operator console with a path to multimodal input and output.
+- Prove a better implementation base for future work on chat, activity, approvals, console state, voice, and attachments.
 
 ## Scope Boundaries
-- In scope: Android-first Flutter app planning and implementation, app shell, navigation, gateway connectivity, session-first chat surfaces, activity and approvals visibility, read-first console surfaces, alpha testing and rollout preparation.
-- Out of scope: iOS parity, desktop parity, broad collaborator permissions, a new parallel backend, transport-channel UX as the primary product, and deep node/device control beyond what is needed for the alpha.
+- In scope: repo pivot, Happy code import, architecture retention, OpenClaw adaptation planning, and investigation of multimodal opportunities.
+- Out of scope for this pivot step: full backend replacement, polished branding pass, and complete multimodal implementation.

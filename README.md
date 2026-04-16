@@ -1,63 +1,57 @@
 # ClawLine
 
-ClawLine is the start of a Flutter-based OpenClaw mobile product, initially focused on Android.
+ClawLine is **built on Happy** and focused on **OpenClaw mobile integration**.
 
-## Project goal
+This repo has pivoted from the earlier custom Flutter alpha into a Happy-based mobile fork adapted toward the OpenClaw gateway and session model.
 
-Build a session-first operator console plus node companion for OpenClaw that is materially better for daily mobile use than Telegram.
+## What changed
 
-The product should let Bart:
-- work across multiple OpenClaw sessions from mobile,
-- monitor live runs, approvals, failures, and tool activity,
-- manage key gateway, node, channel, and skill state,
-- and use voice, attachments, and device capabilities in a way that fits real mobile workflows.
+- The previous Flutter app shell under `app/clawline` has been removed.
+- The repository now contains an imported snapshot of [`slopus/happy`](https://github.com/slopus/happy) as the new codebase foundation.
+- The existing ClawLine delivery and architecture layer is intentionally retained:
+  - `.agents/`
+  - `.project/`
+  - `.delano/`
+  - `docs/architecture_outline.md`
 
-## Source architecture
+## Upstream base
 
-The current source architecture for this repo lives here:
-- [`docs/architecture_outline.md`](docs/architecture_outline.md)
+- Upstream remote: `upstream-happy`
+- Imported upstream commit: `ea41c4c`
 
-That document is the planning baseline for the first Delano project in this repository.
+This keeps the repo aligned with a real mobile product that already has:
+- Expo / React Native app foundations
+- mobile + web client structure
+- session-oriented chat UI
+- remote sync infrastructure
+- voice architecture
+- protocol and attachment design work already in progress
 
-## Delivery approach
+## ClawLine product direction
 
-This repo uses Delano as its delivery system.
+The intended fork direction is:
 
-High-level flow:
-1. align on the architecture and product intent,
-2. fill the Delano context pack in `.project/context/`,
-3. create the first Delano project from the architecture,
-4. break work into workstreams and atomic tasks,
-5. implement in small verified slices.
+- keep Happy's strongest mobile UX and infrastructure patterns,
+- replace Happy's provider and machine-centric assumptions with OpenClaw's gateway and session model,
+- preserve ClawLine's Delano planning, architecture, and custom skills,
+- push toward a genuinely multimodal OpenClaw mobile client.
+
+## Important local docs
+
+- `docs/architecture_outline.md`: original OpenClaw mobile architecture baseline
+- `docs/happy-multimodal-fork-assessment.md`: current assessment of what Happy gives us and how to adapt it
+- `.project/context/`: repo planning and delivery context
 
 ## Key repo areas
 
-- `docs/architecture_outline.md`: current architecture baseline
-- `.project/context/`: repo and product context files for Delano
-- `.project/projects/`: delivery projects created from approved plans
-- `.agents/`: shared Delano runtime, rules, hooks, and skills
-- `HANDBOOK.md`: Delano operating handbook
-- `app/`: Flutter application workspace for the alpha app shell and feature slices
-- `.tooling/bin/flutterw`: repo-local Flutter bootstrap wrapper
+- `packages/happy-app/`: imported mobile and web client base
+- `packages/happy-agent/`: agent control layer from Happy
+- `packages/happy-cli/`: CLI wrapper from Happy
+- `packages/happy-server/`: Happy backend implementation
+- `packages/happy-wire/`: protocol and wire-layer types
+- `.agents/`: retained Delano runtime and skill layer for ClawLine
+- `.project/`: retained project planning and execution truth
 
-## Local Flutter bootstrap
+## Recommended implementation stance
 
-This repo uses a local Flutter wrapper instead of assuming a system installation.
-
-From the repo root:
-
-```bash
-./.tooling/bin/flutterw --version
-./.tooling/bin/flutterw pub get --directory app
-```
-
-The wrapper installs the pinned SDK version from `.tooling/flutter.version` into ignored local paths under `.tooling/`.
-
-## First milestone
-
-Translate the architecture outline into the first executable Delano project for the ClawLine alpha, likely covering:
-- app shell and navigation,
-- gateway connection model,
-- session-first chat foundation,
-- operator activity surfaces,
-- and initial Flutter app structure.
+Use Happy as the new interaction shell and mobile foundation, but treat OpenClaw Gateway as the long-term source of truth. The best next step is not to rebrand everything immediately, but to adapt the mobile app surface and session model first, then replace backend assumptions slice by slice.
