@@ -1,101 +1,28 @@
 {
   "version": 1,
-  "updated": "2026-04-15T21:22:00Z",
+  "updated": "2026-04-16T20:54:06Z",
   "projects": {
-    "clawline-android-alpha": {
+    "clawline-multimedia-sharing": {
       "linear_project_id": "",
       "status": "planned",
       "lead": "bart",
-      "spec": ".project/projects/clawline-android-alpha/spec.md",
-      "plan": ".project/projects/clawline-android-alpha/plan.md"
+      "spec": ".project/projects/clawline-multimedia-sharing/spec.md",
+      "plan": ".project/projects/clawline-multimedia-sharing/plan.md"
     },
-    "clawline-android-power-user": {
+    "clawline-skill-slash-commands": {
       "linear_project_id": "",
       "status": "planned",
       "lead": "bart",
-      "spec": ".project/projects/clawline-android-power-user/spec.md",
-      "plan": ".project/projects/clawline-android-power-user/plan.md"
+      "spec": ".project/projects/clawline-skill-slash-commands/spec.md",
+      "plan": ".project/projects/clawline-skill-slash-commands/plan.md"
     },
-    "clawline-android-advanced-platform": {
+    "clawline-rich-tool-output": {
       "linear_project_id": "",
       "status": "planned",
       "lead": "bart",
-      "spec": ".project/projects/clawline-android-advanced-platform/spec.md",
-      "plan": ".project/projects/clawline-android-advanced-platform/plan.md"
+      "spec": ".project/projects/clawline-rich-tool-output/spec.md",
+      "plan": ".project/projects/clawline-rich-tool-output/plan.md"
     }
   },
-  "tasks": {
-    "T-001": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "T-002": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "T-003": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "T-004": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "T-005": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "T-006": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "T-007": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "T-008": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "T-009": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "T-010": {
-      "linear_issue_id": "",
-      "project": "clawline-android-alpha"
-    },
-    "clawline-android-power-user:T-001": {
-      "linear_issue_id": "",
-      "project": "clawline-android-power-user"
-    },
-    "clawline-android-power-user:T-002": {
-      "linear_issue_id": "",
-      "project": "clawline-android-power-user"
-    },
-    "clawline-android-power-user:T-003": {
-      "linear_issue_id": "",
-      "project": "clawline-android-power-user"
-    },
-    "clawline-android-power-user:T-004": {
-      "linear_issue_id": "",
-      "project": "clawline-android-power-user"
-    },
-    "clawline-android-advanced-platform:T-001": {
-      "linear_issue_id": "",
-      "project": "clawline-android-advanced-platform"
-    },
-    "clawline-android-advanced-platform:T-002": {
-      "linear_issue_id": "",
-      "project": "clawline-android-advanced-platform"
-    },
-    "clawline-android-advanced-platform:T-003": {
-      "linear_issue_id": "",
-      "project": "clawline-android-advanced-platform"
-    },
-    "clawline-android-advanced-platform:T-004": {
-      "linear_issue_id": "",
-      "project": "clawline-android-advanced-platform"
-    }
-  }
+  "tasks": {}
 }
