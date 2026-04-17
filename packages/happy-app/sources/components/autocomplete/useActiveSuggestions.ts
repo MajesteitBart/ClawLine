@@ -12,6 +12,8 @@ export function useActiveSuggestions(
     handler: (query: string) => Promise<{
         key: string,
         text: string,
+        addSpace?: boolean,
+        selectionText?: string,
         component: React.ElementType
     }[]>,
     options: SuggestionOptions = {}
@@ -24,7 +26,7 @@ export function useActiveSuggestions(
 
     // State for suggestions
     const [state, setState] = React.useState<{
-        suggestions: { key: string, text: string, component: React.ElementType }[];
+        suggestions: { key: string, text: string, addSpace?: boolean, selectionText?: string, component: React.ElementType }[];
         selected: number,
     }>({
         suggestions: [],

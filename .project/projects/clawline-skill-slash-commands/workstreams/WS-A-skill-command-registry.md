@@ -1,26 +1,27 @@
 ---
 name: WS-A Skill Command Registry
 owner: bart
-status: planned
+status: done
 created: 2026-04-16T20:54:06Z
-updated: 2026-04-16T20:54:06Z
+updated: 2026-04-16T21:32:26Z
 ---
 
 # Workstream: WS-A Skill Command Registry
 
 ## Objective
 
-Define the registry-backed metadata model for supported skill slash commands, including names, descriptions, and argument hints.
+Define the registry-backed metadata model for supported slash commands, layering curated metadata over the existing `session.metadata.slashCommands` availability path.
 
 ## Owned Files/Areas
 
-- skill command metadata definitions
+- slash command metadata definitions
 - command discovery and lookup logic
+- `packages/happy-app/sources/sync/suggestionCommands.ts`
 - lightweight contract for labels, descriptions, and examples
 
 ## Dependencies
 
-- existing OpenClaw skill invocation path remains available
+- existing OpenClaw session metadata continues to expose `slashCommands`
 - current composer autocomplete can consume registry-backed suggestions
 
 ## Risks
@@ -30,6 +31,6 @@ Define the registry-backed metadata model for supported skill slash commands, in
 
 ## Handoff Criteria
 
-- supported skills can be described by one canonical registry
+- supported metadata-backed commands can be described by one canonical registry
 - registry data is sufficient to drive autocomplete and insertion
-- the initial curated skill set is explicit and testable
+- the initial curated command set is explicit and testable

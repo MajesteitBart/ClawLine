@@ -6,26 +6,47 @@ import { Typography } from '@/constants/Typography';
 import { t } from '@/text';
 
 interface CommandSuggestionProps {
+    label: string;
     command: string;
     description?: string;
+    argumentHint?: string;
 }
 
-export const CommandSuggestion = React.memo(({ command, description }: CommandSuggestionProps) => {
+export const CommandSuggestion = React.memo(({ label, command, description, argumentHint }: CommandSuggestionProps) => {
     return (
         <View style={styles.suggestionContainer}>
-            <Text 
-                style={[styles.commandText, { marginRight: description ? 12 : 0 }]}
-            >
-                /{command}
-            </Text>
-            {description && (
+            <View style={styles.commandContent}>
                 <Text
-                    style={styles.descriptionText}
+                    style={styles.commandLabelText}
                     numberOfLines={1}
                 >
-                    {description}
+                    {label}
                 </Text>
-            )}
+                <View style={styles.commandMetaRow}>
+                    <Text
+                        style={styles.commandText}
+                        numberOfLines={1}
+                    >
+                        /{command}
+                    </Text>
+                    {argumentHint && (
+                        <Text
+                            style={styles.argumentHintText}
+                            numberOfLines={1}
+                        >
+                            {argumentHint}
+                        </Text>
+                    )}
+                    {description && (
+                        <Text
+                            style={styles.descriptionText}
+                            numberOfLines={1}
+                        >
+                            {description}
+                        </Text>
+                    )}
+                </View>
+            </View>
         </View>
     );
 });
@@ -61,21 +82,40 @@ export const FileMentionSuggestion = React.memo(({ fileName, filePath, fileType 
 
 const styles = StyleSheet.create((theme) => ({
     suggestionContainer: {
+        minHeight: 56,
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 16,
-        paddingVertical: 12,
-        height: 48,
+        paddingVertical: 8,
     },
-    commandText: {
+    commandContent: {
+        flex: 1,
+        minWidth: 0,
+    },
+    commandLabelText: {
         fontSize: 14,
         color: theme.colors.text,
-        fontWeight: '600',
         ...Typography.default('semiBold'),
+    },
+    commandMetaRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        marginTop: 2,
+    },
+    commandText: {
+        fontSize: 12,
+        color: theme.colors.textSecondary,
+        ...Typography.mono(),
+    },
+    argumentHintText: {
+        fontSize: 12,
+        color: theme.colors.textSecondary,
+        ...Typography.mono(),
     },
     descriptionText: {
         flex: 1,
-        fontSize: 13,
+        fontSize: 12,
         color: theme.colors.textSecondary,
         ...Typography.default(),
     },

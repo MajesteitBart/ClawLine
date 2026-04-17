@@ -5,105 +5,37 @@
 
 import Fuse from 'fuse.js';
 import { storage } from './storage';
+import { buildSlashCommandRegistry, SlashCommandRegistryEntry } from './slashCommandRegistry';
 
-export interface CommandItem {
-    command: string;        // The command without slash (e.g., "compact")
-    description?: string;   // Optional description of what the command does
-}
+export type CommandItem = SlashCommandRegistryEntry;
 
 interface SearchOptions {
     limit?: number;
     threshold?: number;
 }
 
-// Commands to ignore/filter out
-export const IGNORED_COMMANDS = [
-    "add-dir",
-    "agents",
-    "config",
-    "statusline",
-    "bashes",
-    "settings",
-    "cost",
-    "doctor",
-    "exit",
-    "help",
-    "ide",
-    "init",
-    "install-github-app",
-    "mcp",
-    "memory",
-    "migrate-installer",
-    "model",
-    "pr-comments",
-    "release-notes",
-    "resume",
-    "status",
-    "bug",
-    "review",
-    "security-review",
-    "terminal-setup",
-    "upgrade",
-    "vim",
-    "permissions",
-    "hooks",
-    "export",
-    "logout",
-    "login"
-];
+function matchPriority(command: CommandItem, query: string): number {
+    const normalizedQuery = query.trim().toLowerCase();
+    if (!normalizedQuery) return 0;
 
-// Default commands always available
-const DEFAULT_COMMANDS: CommandItem[] = [
-    { command: 'compact', description: 'Compact the conversation history' },
-    { command: 'clear', description: 'Clear the conversation' }
-];
+    const commandName = command.command.toLowerCase();
+    const label = command.label.toLowerCase();
+    const description = command.description?.toLowerCase() ?? '';
+    const argumentHint = command.argumentHint?.toLowerCase() ?? '';
 
-// Command descriptions for known tools/commands
-const COMMAND_DESCRIPTIONS: Record<string, string> = {
-    // Default commands
-    compact: 'Compact the conversation history',
-    
-    // Common tool commands
-    help: 'Show available commands',
-    clear: 'Clear the conversation',
-    reset: 'Reset the session',
-    export: 'Export conversation',
-    debug: 'Show debug information',
-    status: 'Show connection status',
-    stop: 'Stop current operation',
-    abort: 'Abort current operation',
-    cancel: 'Cancel current operation',
-    
-    // Add more descriptions as needed
-};
+    if (commandName === normalizedQuery) return 0;
+    if (commandName.startsWith(normalizedQuery)) return 1;
+    if (label.startsWith(normalizedQuery)) return 2;
+    if (description.includes(normalizedQuery) || argumentHint.includes(normalizedQuery)) return 3;
+    return 4;
+}
 
 // Get commands from session metadata
 function getCommandsFromSession(sessionId: string): CommandItem[] {
     const state = storage.getState();
     const session = state.sessions[sessionId];
-    if (!session || !session.metadata) {
-        return DEFAULT_COMMANDS;
-    }
 
-    const commands: CommandItem[] = [...DEFAULT_COMMANDS];
-    
-    // Add commands from metadata.slashCommands (filter with ignore list)
-    if (session.metadata.slashCommands) {
-        for (const cmd of session.metadata.slashCommands) {
-            // Skip if in ignore list
-            if (IGNORED_COMMANDS.includes(cmd)) continue;
-            
-            // Check if it's already in default commands
-            if (!commands.find(c => c.command === cmd)) {
-                commands.push({
-                    command: cmd,
-                    description: COMMAND_DESCRIPTIONS[cmd]  // Optional description
-                });
-            }
-        }
-    }
-    
-    return commands;
+    return buildSlashCommandRegistry(session?.metadata?.slashCommands ?? []);
 }
 
 // Main export: search commands with fuzzy matching
@@ -125,8 +57,10 @@ export async function searchCommands(
     // Setup Fuse for fuzzy search
     const fuseOptions = {
         keys: [
-            { name: 'command', weight: 0.7 },
-            { name: 'description', weight: 0.3 }
+            { name: 'command', weight: 0.55 },
+            { name: 'label', weight: 0.25 },
+            { name: 'description', weight: 0.1 },
+            { name: 'argumentHint', weight: 0.1 }
         ],
         threshold,
         includeScore: true,
@@ -139,7 +73,13 @@ export async function searchCommands(
     const fuse = new Fuse(commands, fuseOptions);
     const results = fuse.search(query, { limit });
     
-    return results.map(result => result.item);
+    return results
+        .sort((a, b) => {
+            const priorityDiff = matchPriority(a.item, query) - matchPriority(b.item, query);
+            if (priorityDiff !== 0) return priorityDiff;
+            return (a.score ?? 0) - (b.score ?? 0);
+        })
+        .map(result => result.item);
 }
 
 // Get all available commands for a session

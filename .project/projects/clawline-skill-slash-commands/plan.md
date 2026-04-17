@@ -1,9 +1,9 @@
 ---
 name: ClawLine Skill Slash Commands
-status: planned
+status: done
 lead: bart
 created: 2026-04-16T20:54:06Z
-updated: 2026-04-16T20:54:06Z
+updated: 2026-04-16T21:32:26Z
 linear_project_id:
 risk_level: low
 spec_status_at_plan_time: approved
@@ -19,7 +19,8 @@ spec_status_at_plan_time: approved
 ## Architecture Decisions
 
 - Reuse existing slash-command and autocomplete primitives in the Happy-derived composer.
-- Introduce a skill command registry instead of scattering skill knowledge across input components.
+- Treat `session.metadata.slashCommands` as the current command availability source.
+- Introduce a registry overlay for curated labels, descriptions, and argument hints instead of scattering command knowledge across input components.
 - Keep first-run invocation simple, then layer richer argument helpers only where they clearly reduce friction.
 
 ## Probe-Driven Architecture Changes
@@ -28,11 +29,13 @@ spec_status_at_plan_time: approved
 
 ## Workstream Design
 
-1. Skill metadata and registry
+1. Slash command registry overlay
    - define command name, label, description, and argument hints
+   - map metadata-backed commands into one canonical registry shape
 
 2. Composer autocomplete integration
    - plug registry-backed suggestions into current slash-command flows
+   - surface richer registry metadata in suggestion rows and ranking
 
 3. Invocation UX
    - insert commands predictably and support lightweight argument help
@@ -66,5 +69,6 @@ spec_status_at_plan_time: approved
 ## Remaining Delivery Risks
 
 - poor argument UX could make commands feel heavier instead of faster
-- metadata drift if skill definitions change without a stable contract
+- metadata drift if command definitions change without a stable contract
+- richer skill metadata may not arrive from OpenClaw immediately, so the first slice must work with current session metadata
 - too many commands too early could reduce suggestion quality

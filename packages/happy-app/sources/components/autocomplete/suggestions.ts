@@ -2,10 +2,13 @@ import { CommandSuggestion, FileMentionSuggestion } from '@/components/AgentInpu
 import * as React from 'react';
 import { searchFiles, FileItem } from '@/sync/suggestionFile';
 import { searchCommands, CommandItem } from '@/sync/suggestionCommands';
+import { getSlashCommandInsertion } from '@/sync/slashCommandRegistry';
 
 export async function getCommandSuggestions(sessionId: string, query: string): Promise<{
     key: string;
     text: string;
+    addSpace?: boolean;
+    selectionText?: string;
     component: React.ComponentType;
 }[]> {
     // Remove the "/" prefix for searching
@@ -16,14 +19,22 @@ export async function getCommandSuggestions(sessionId: string, query: string): P
         const commands = await searchCommands(sessionId, searchTerm, { limit: 5 });
 
         // Convert CommandItem to suggestion format
-        return commands.map((cmd: CommandItem) => ({
-            key: `cmd-${cmd.command}`,
-            text: `/${cmd.command}`,
-            component: () => React.createElement(CommandSuggestion, {
-                command: cmd.command,
-                description: cmd.description
-            })
-        }));
+        return commands.map((cmd: CommandItem) => {
+            const insertion = getSlashCommandInsertion(cmd);
+
+            return {
+                key: `cmd-${cmd.command}`,
+                text: insertion.text,
+                addSpace: insertion.addSpace,
+                selectionText: insertion.selectionText,
+                component: () => React.createElement(CommandSuggestion, {
+                    label: cmd.label,
+                    command: cmd.command,
+                    description: cmd.description,
+                    argumentHint: cmd.argumentHint,
+                })
+            };
+        });
     } catch (error) {
         console.error('Error fetching command suggestions:', error);
         return [];
@@ -33,6 +44,8 @@ export async function getCommandSuggestions(sessionId: string, query: string): P
 export async function getFileMentionSuggestions(sessionId: string, query: string): Promise<{
     key: string;
     text: string;
+    addSpace?: boolean;
+    selectionText?: string;
     component: React.ComponentType;
 }[]> {
     // Remove the "@" prefix for searching
@@ -61,6 +74,8 @@ export async function getFileMentionSuggestions(sessionId: string, query: string
 export async function getSuggestions(sessionId: string, query: string): Promise<{
     key: string;
     text: string;
+    addSpace?: boolean;
+    selectionText?: string;
     component: React.ComponentType;
 }[]> {
     if (!query || query.length === 0) {

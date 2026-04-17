@@ -10,7 +10,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hello @john_smith ',
-                cursorPosition: 18  // Cursor after the space
+                cursorPosition: 18,  // Cursor after the space
+                selection: { start: 18, end: 18 }
             });
         });
         
@@ -21,7 +22,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'I feel :happy: ',
-                cursorPosition: 15
+                cursorPosition: 15,
+                selection: { start: 15, end: 15 }
             });
         });
         
@@ -32,7 +34,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Type /help ',
-                cursorPosition: 11
+                cursorPosition: 11,
+                selection: { start: 11, end: 11 }
             });
         });
     });
@@ -45,7 +48,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hello @john_smith here',
-                cursorPosition: 17
+                cursorPosition: 17,
+                selection: { start: 17, end: 17 }
             });
         });
         
@@ -56,7 +60,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hello @john_smith ',
-                cursorPosition: 18  // Cursor after the space
+                cursorPosition: 18,  // Cursor after the space
+                selection: { start: 18, end: 18 }
             });
         });
     });
@@ -69,7 +74,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hello @john_smith ,welcome',
-                cursorPosition: 18  // Cursor after the space
+                cursorPosition: 18,  // Cursor after the space
+                selection: { start: 18, end: 18 }
             });
         });
         
@@ -80,7 +86,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hello @john_smith welcome',
-                cursorPosition: 17
+                cursorPosition: 17,
+                selection: { start: 17, end: 17 }
             });
         });
         
@@ -91,7 +98,27 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hello @john_smith',
-                cursorPosition: 17
+                cursorPosition: 17,
+                selection: { start: 17, end: 17 }
+            });
+        });
+
+        it('should select scaffold placeholder text when provided', () => {
+            const content = '/de';
+            const selection = { start: 3, end: 3 };
+            const result = applySuggestion(
+                content,
+                selection,
+                '/debug [topic]',
+                ['@', ':', '/'],
+                false,
+                { text: '[topic]' }
+            );
+
+            expect(result).toEqual({
+                text: '/debug [topic]',
+                cursorPosition: 14,
+                selection: { start: 7, end: 14 }
             });
         });
     });
@@ -104,7 +131,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hello @john_smith world',
-                cursorPosition: 18
+                cursorPosition: 18,
+                selection: { start: 18, end: 18 }
             });
         });
         
@@ -115,7 +143,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hello @john_smith ',
-                cursorPosition: 18
+                cursorPosition: 18,
+                selection: { start: 18, end: 18 }
             });
         });
     });
@@ -128,7 +157,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: '@john_smith ',
-                cursorPosition: 12
+                cursorPosition: 12,
+                selection: { start: 12, end: 12 }
             });
         });
         
@@ -139,7 +169,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: '@john_smith ',
-                cursorPosition: 12
+                cursorPosition: 12,
+                selection: { start: 12, end: 12 }
             });
         });
         
@@ -150,7 +181,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hi @alice , meet @user2',
-                cursorPosition: 10  // Cursor after the space
+                cursorPosition: 10,  // Cursor after the space
+                selection: { start: 10, end: 10 }
             });
         });
     });
@@ -163,7 +195,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Use $variable ',
-                cursorPosition: 14
+                cursorPosition: 14,
+                selection: { start: 14, end: 14 }
             });
         });
     });
@@ -176,7 +209,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: 'Hello @john_smith !',
-                cursorPosition: 18  // Cursor after the space
+                cursorPosition: 18,  // Cursor after the space
+                selection: { start: 18, end: 18 }
             });
         });
         
@@ -187,7 +221,8 @@ describe('applySuggestion', () => {
             
             expect(result).toEqual({
                 text: '(@john_smith )',
-                cursorPosition: 13  // Cursor after the space
+                cursorPosition: 13,  // Cursor after the space
+                selection: { start: 13, end: 13 }
             });
         });
     });

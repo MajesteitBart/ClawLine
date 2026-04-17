@@ -57,7 +57,7 @@ interface AgentInputProps {
         };
     };
     autocompletePrefixes: string[];
-    autocompleteSuggestions: (query: string) => Promise<{ key: string, text: string, component: React.ElementType }[]>;
+    autocompleteSuggestions: (query: string) => Promise<{ key: string, text: string, addSpace?: boolean, selectionText?: string, component: React.ElementType }[]>;
     usageData?: {
         inputTokens: number;
         outputTokens: number;
@@ -409,14 +409,12 @@ export const AgentInput = React.memo(React.forwardRef<MultiTextInputHandle, Agen
             inputState.selection,
             suggestion.text,
             props.autocompletePrefixes,
-            true // add space after
+            suggestion.addSpace ?? true,
+            suggestion.selectionText ? { text: suggestion.selectionText } : undefined
         );
 
         // Use imperative API to set text and selection
-        inputRef.current.setTextAndSelection(result.text, {
-            start: result.cursorPosition,
-            end: result.cursorPosition
-        });
+        inputRef.current.setTextAndSelection(result.text, result.selection);
 
         // console.log('Selected suggestion:', suggestion.text);
 
@@ -576,7 +574,7 @@ export const AgentInput = React.memo(React.forwardRef<MultiTextInputHandle, Agen
                             })}
                             selectedIndex={selected}
                             onSelect={handleSuggestionSelect}
-                            itemHeight={48}
+                            itemHeight={56}
                         />
                     </View>
                 )}

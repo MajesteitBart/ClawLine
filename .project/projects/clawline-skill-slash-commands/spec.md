@@ -4,7 +4,7 @@ slug: clawline-skill-slash-commands
 owner: bart
 status: approved
 created: 2026-04-16T20:54:06Z
-updated: 2026-04-16T20:54:06Z
+updated: 2026-04-16T21:20:22Z
 outcome: Bart can discover and invoke OpenClaw skills from the ClawLine composer through custom slash commands with autocomplete, guidance, and safe parameter handoff.
 uncertainty: low
 probe_required: false
@@ -15,11 +15,11 @@ probe_status: skipped
 
 ## Executive Summary
 
-ClawLine already has command and autocomplete patterns in the Happy-derived UI. This project turns skills into a first-class mobile interaction surface by adding custom slash commands for skill invocation, discovery, and parameter guidance directly inside the composer.
+ClawLine already has command and autocomplete patterns in the Happy-derived UI, and the current code already reads slash command availability from `session.metadata.slashCommands`. This project makes that path explicit and maintainable by defining a canonical registry overlay for curated command metadata, then using it to improve discovery and invocation inside the composer.
 
 ## Problem and Users
 
-Bart wants fast skill access from mobile without remembering raw invocation details or falling back to desktop/operator workarounds. The current client has enough command/autocomplete infrastructure to support this, but skills are not yet surfaced as a clean, explicit slash-command layer.
+Bart wants fast skill access from mobile without remembering raw invocation details or falling back to desktop/operator workarounds. The current client already surfaces generic slash commands from session metadata, but that path is too thin: command metadata is scattered, descriptions are sparse, and there is no canonical contract for curated OpenClaw-relevant commands.
 
 Primary user:
 - Bart as a heavy OpenClaw skill user on mobile.
@@ -36,7 +36,7 @@ Secondary users later:
 
 ## Scope
 ### In Scope
-- skill slash command registration model
+- registry overlay for metadata-backed slash commands
 - autocomplete and ranking for skill commands in the composer
 - inline argument scaffolding or prompting for common skill inputs
 - help text, examples, and labels for discoverability
@@ -66,13 +66,14 @@ Secondary users later:
 ## Hypotheses and Unknowns
 
 - Existing autocomplete primitives in Happy are sufficient for a strong first version.
-- A registry-driven skill metadata layer will scale better than hard-coding commands directly in the input component.
+- `session.metadata.slashCommands` is the right availability source for now, with a local registry overlay adding labels, descriptions, and argument hints.
 - Some skills may need richer parameter prompting than simple slash-command insertion.
 
 ## Touchpoints to Exercise
 
 - `packages/happy-app` composer and autocomplete surfaces
-- skill metadata and discovery path exposed through OpenClaw-compatible flows
+- `packages/happy-app/sources/sync/suggestionCommands.ts`
+- `packages/happy-app/sources/sync/storageTypes.ts`
 - session send path for command-backed prompts
 
 ## Probe Findings
@@ -86,15 +87,15 @@ Secondary users later:
 
 ## Remaining Unknowns
 
-- Which skills should be supported in the first command set versus later.
+- Which curated commands should get richer labels and argument hints first.
 - Whether complex skills need modal parameter collection instead of inline slash arguments.
-- How much skill metadata should live locally versus come from OpenClaw.
+- How much richer command metadata should live locally versus come from OpenClaw later.
 
 ## Dependencies
 
 - existing command/autocomplete surfaces in `packages/happy-app`
-- OpenClaw skill execution patterns already available through the working client path
-- a small canonical metadata contract for skill labels, descriptions, and argument hints
+- `session.metadata.slashCommands` already populated by the working OpenClaw-compatible session path
+- a small canonical metadata contract for labels, descriptions, and argument hints
 
 ## Approval Notes
 

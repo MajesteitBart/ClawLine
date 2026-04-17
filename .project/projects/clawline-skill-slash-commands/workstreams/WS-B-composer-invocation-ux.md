@@ -1,9 +1,9 @@
 ---
 name: WS-B Composer Invocation UX
 owner: bart
-status: planned
+status: done
 created: 2026-04-16T20:54:06Z
-updated: 2026-04-16T20:54:06Z
+updated: 2026-04-16T21:32:26Z
 ---
 
 # Workstream: WS-B Composer Invocation UX

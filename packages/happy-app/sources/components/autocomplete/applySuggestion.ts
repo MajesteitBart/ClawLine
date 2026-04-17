@@ -5,6 +5,10 @@ interface Selection {
     end: number;
 }
 
+interface SuggestionSelection {
+    text?: string;
+}
+
 /**
  * Applies a suggestion by replacing the active word with the provided suggestion text
  * @param content The full text content
@@ -19,10 +23,34 @@ export function applySuggestion(
     selection: Selection,
     suggestion: string,
     prefixes: string[] = ['@', ':', '/'],
-    addSpace: boolean = true
-): { text: string; cursorPosition: number } {
+    addSpace: boolean = true,
+    suggestionSelection?: SuggestionSelection
+): { text: string; cursorPosition: number; selection: Selection } {
     // Find the active word at the current position
     const activeWord = findActiveWord(content, selection, prefixes);
+
+    const buildSelection = (text: string, insertionStart: number, fallbackCursorPosition: number): Selection => {
+        const selectionText = suggestionSelection?.text;
+        if (!selectionText) {
+            return {
+                start: fallbackCursorPosition,
+                end: fallbackCursorPosition,
+            };
+        }
+
+        const selectionOffset = text.indexOf(selectionText, insertionStart);
+        if (selectionOffset === -1) {
+            return {
+                start: fallbackCursorPosition,
+                end: fallbackCursorPosition,
+            };
+        }
+
+        return {
+            start: selectionOffset,
+            end: selectionOffset + selectionText.length,
+        };
+    };
     
     if (!activeWord) {
         // No active word found, just insert the suggestion at cursor position
@@ -30,9 +58,13 @@ export function applySuggestion(
         const afterCursor = content.substring(selection.end);
         const suggestionWithSpace = addSpace ? suggestion + ' ' : suggestion;
         
+        const text = beforeCursor + suggestionWithSpace + afterCursor;
+        const cursorPosition = selection.start + suggestionWithSpace.length;
+
         return {
-            text: beforeCursor + suggestionWithSpace + afterCursor,
-            cursorPosition: selection.start + suggestionWithSpace.length
+            text,
+            cursorPosition,
+            selection: buildSelection(text, selection.start, cursorPosition)
         };
     }
     
@@ -56,6 +88,7 @@ export function applySuggestion(
     
     return {
         text: newText,
-        cursorPosition: newCursorPosition
+        cursorPosition: newCursorPosition,
+        selection: buildSelection(newText, activeWord.offset, newCursorPosition)
     };
 }
